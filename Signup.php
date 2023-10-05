@@ -248,7 +248,7 @@
         font-size: 20px;
         color: #8b8b8b;
         cursor: pointer;
-        padding: 10px;
+        padding: 5px;
     }
     .invalid-feedback {
         margin-top: 18%;
