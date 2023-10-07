@@ -311,7 +311,7 @@ $available = $available - $usepie;
                         $('#Payment_display').html(data);
                     }
                 });
-            }, 100);
+            }, 5000);
         });
     </script>
 <!-- Old Password -->
