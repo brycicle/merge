@@ -118,7 +118,7 @@
 		?>
 	    <?php 
 	    	$accountid = $row['accountid'];
-		    $referralLink = "http://merge.ph//Project1/Signup.php?sponsorid=" . $accountid;
+		    $referralLink = "http://merge.ph/Signup.php?sponsorid=" . $accountid;
 	    	}
 	    }
 	    ?>

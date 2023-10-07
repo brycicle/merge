@@ -121,7 +121,7 @@
 		?>
 		<?php
 			$accountid = $row['accountid'];
-			$referralLink = "http://merge.ph//Signup.php?sponsorid=" . $accountid;
+			$referralLink = "http://merge.ph/Signup.php?sponsorid=" . $accountid;
          	$status = $row['status'];
 
         	$disableButton = ($status === "inactive account") ? "disabled" : "";
