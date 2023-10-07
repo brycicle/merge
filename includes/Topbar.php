@@ -80,7 +80,7 @@
                     updateCount();
 
                     // Call the updateCount() function every 1 seconds
-                    setInterval(updateCount, 1000);
+                    setInterval(updateCount, 5000);
                 });
             </script>
 
@@ -101,7 +101,7 @@
                       }
 
                       // Call fetchData() every 1 seconds
-                      setInterval(fetchData, 1000);
+                      setInterval(fetchData, 5000);
                   });
               </script>
           <div class="menu-button-container" >

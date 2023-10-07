@@ -228,14 +228,6 @@ function DirectReferralBonus($sponsorid) {
     $updateSql = "UPDATE genealogy SET DRB = ? WHERE AccountID = ?";
     $updateStmt = $conn->prepare($updateSql);
     $updateStmt->bind_param("ds", $newDRBValue, $sponsorid);
-
-    if ($updateStmt->execute()) {
-        echo "Sponsor awarded " .$DRB. " successfully ";
-        return true; // Bonus awarded successfully
-    } else {
-        echo "Bonus award failed";
-        return false; // Bonus award failed
-    }
 }
 
 function PairingBonus($uplineID1, $side) {

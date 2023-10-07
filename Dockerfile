@@ -17,6 +17,7 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 # Copy the application files to the container
 COPY . /var/www/html
+RUN chown -R www-data:www-data /var/www
 
 EXPOSE 80
 
