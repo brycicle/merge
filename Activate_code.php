@@ -230,7 +230,6 @@ function DirectReferralBonus($sponsorid) {
     $updateStmt->bind_param("ds", $newDRBValue, $sponsorid);
 
     if ($updateStmt->execute()) {
-        echo "Sponsor awarded " .$DRB. " successfully ";
         return true; // Bonus awarded successfully
     } else {
         echo "Bonus award failed";
