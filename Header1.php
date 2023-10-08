@@ -58,19 +58,14 @@
         transition: 0.6s;
     }
     header .signup{
-        margin-left: 42%;
-        position: absolute;
-        text-decoration: none;
-        color: #fff;
-    }
-    header .lead {
         margin-left: 50%;
         position: absolute;
         text-decoration: none;
         color: #fff;
     }
+
     header .signin {
-        margin-left: 54%;
+        margin-left: 70%;
         position: absolute;
         text-decoration: none;
         color: #fff;
@@ -155,7 +150,7 @@
 <body>
 <header>
     <a href="index.php" class="logo"><img style="width: 150px;" src="img/Logolabel2.png"></a>
-    <a href="Signup.php" class="signup">Sign Up</a><p class="lead">|</p><a href="Signin.php" class="signin">Sign In</a>
+    <a href="Signup.php" class="signup">Sign Up</a> <a href="Signin.php" class="signin">Sign In</a>
 </header>
 <script>
     window.addEventListener('scroll', function() {
