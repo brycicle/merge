@@ -14,8 +14,8 @@
 </head>
 <body>
      <div class="page-wrapper mdc-toolbar-fixed-adjust">
-        <main class="content-wrapper">
-          <div class="mdc-layout-grid">
+        <main class="content-wrapper" >
+          <div class="mdc-layout-grid"  >
             <div class="mdc-layout-grid__inner">
 
 
@@ -23,14 +23,14 @@
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
                 <div class="mdc-card">
                   <div class="chart-container mt-4">
-                    <div id="columnchart_material" style="width: 400 px; height: 300px;"></div>
+                    <div id="columnchart_material" style="width: 450 px; height: 300px;"></div>
                   </div>
                 </div>
               </div>
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
                 <div class="mdc-card">
                   <div class="chart-container mt-4">
-                    <div id="piechart_3d" style="width: 400 px; height: 300px;"></div>
+                    <div id="piechart_3d" style="width: 450 px; height: 300px;"></div>
                   </div>
                 </div>
               </div>
