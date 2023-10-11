@@ -149,7 +149,7 @@
 										<h6><?php echo $row['bank_name'] ?></h6>
 	                					<label>Account Name: <bold class="bold"><?php echo $row['account_name'] ?></bold></label><br>
 	                					<label>Accout Number: <bold class="bold"><?php echo $row['account_num'] ?></bold></label><br>
-	                					<label>Amount: <bold class="bold"><?php echo number_format($row['amount']) ?></bold><input type="hidden" name="amount" value="<?php echo $row['amount'] ?>"></label>
+	                					<label>Amount: <bold class="bold"><?php echo number_format($row['amount']) ?></bold></label>
 	                					<?php 
 	                						}
 	                					}
@@ -176,6 +176,10 @@
 		                      					<div class="mdc-notched-outline__trailing"></div>
 		                   					</div>
 		                  				</div>
+		                  				<?php 
+									    	}
+									    }
+									    ?>
 
 						                <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
 		                  					<i class="mdc-text-field__icon uil uil-postcard"></i> 			
@@ -189,16 +193,45 @@
 		                   					</div>
 		                  				</div>
 
+		                  				<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
+		                  					<i class="mdc-text-field__icon uil uil-coins"></i> 			
+		                    				<input type="number" name="amount" class="mdc-text-field__input" id="text-field-hero-input" required>
+		                    				<div class="mdc-notched-outline">
+		                      					<div class="mdc-notched-outline__leading"></div>
+		                      					<div class="mdc-notched-outline__notch">
+		                        					<label for="text-field-hero-input" class="mdc-floating-label">Enter amount payment</label>
+		                      					</div>
+		                      					<div class="mdc-notched-outline__trailing"></div>
+		                   					</div>
+		                  				</div>
+
                     					<label>Upload Payment Receipt</label>
                     					<input type="file" name="upload" class="form-control" required>
                     					<input type="hidden" name="description" value="Payment for Activation Account">
                     					<input type="hidden" name="status" value="Waiting">
                     					<hr>
                     					<?php
-								         	$switch = $row['switch'];
-								        	$disableButton = ($switch === "1") ? "disabled" : "";
-								        ?>
+											$username = $_SESSION['username'];
+											$amount = 0;
 
+											$sql = mysqli_query($conn, "SELECT SUM(amount) AS amount FROM payment WHERE username='$username'");
+                    
+											if ($sql) {
+											    while ($row = mysqli_fetch_assoc($sql)) {
+											        $amount = $row['amount'];
+											    }
+											}
+
+											$sql = mysqli_query($conn, "SELECT * FROM mode_payment");
+											if ($sql) {
+											    while ($row = mysqli_fetch_array($sql)) {
+											        $totalamount = $row['amount'];
+											    }
+											}
+
+											$disableButton = ($amount >= $totalamount) ? "disabled" : "";
+										?>
+										
 										<button type="submit" class="btn btn-primary col-sm-4 offset-md-4 <?php echo $disableButton; ?>" name="submit">Submit</button>
 		                  			</form>
 	                			</div>
@@ -209,10 +242,7 @@
 	      	</div>
 	    </div>
 	</main>
-    <?php 
-    	}
-    }
-    ?>
+
     <div class="table-container" id="Payment_display">
 		
 	</div>

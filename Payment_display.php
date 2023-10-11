@@ -1,22 +1,8 @@
 <?php 
 	session_start();
 	include "msqliconnect/connect.php";
-	$sql = "SELECT * FROM payment";
-	$result = mysqli_query($conn, $sql);
-
-	$num_per_page =  20;
-
-	if(isset($_GET["page"])){
-		$page = $_GET["page"];
-	}else{
-		$page = 1;
-	}
-
-	$start_from = ($page-1)*$num_per_page;
-	$next_page = $page + 1;
-	$previous_page = $page - 1;
 	$username = $_SESSION['username'];
-	$sql = "SELECT * FROM payment WHERE username='$username' ORDER BY id DESC LIMIT $start_from, $num_per_page";
+	$sql = "SELECT * FROM payment WHERE username='$username' ORDER BY amount ASC";
 	$result = mysqli_query($conn, $sql);
 ?>
 <table class="ta">
@@ -57,7 +43,7 @@
 		    ?>
 			<span class="badge badge-danger" style="background-color: #dc3545;">Declined</span>
 		    <?php 
-		    	} 
+		    	}  
 		    ?></td>
 		</tr>
 		<?php 

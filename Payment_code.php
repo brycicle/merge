@@ -14,7 +14,13 @@
         $description = $_POST['description'];
         $status = $_POST['status'];
         $limitedadminid = $_POST['limitedadminid'];
-       
+        
+        // Check if the amount is $100 or above
+        if ($amount < 100) {
+            redirect("Payment.php", "Amount must be 100/above.");
+            exit; // Exit
+        }
+
         $payment_query = "INSERT INTO `payment`(`user_id`, `username`, `sponsor_id`, `ref_num`, `upload`, `amount`, `description`, `status`, `limitedadminid`) VALUES ('$user_id','$username','$sponsor_id','$ref_num','$i','$amount','$description','$status','$limitedadminid')";
         $payment_query_run = mysqli_query($conn, $payment_query);
 
@@ -22,12 +28,7 @@
         $activate_query = "INSERT INTO `activate_request`(`user_id`, `username`, `sponsor_id`, `ref_num`, `upload`, `amount`, `description`, `status`, `limitedadminid`) VALUES ('$user_id','$username','$sponsor_id','$ref_num','$i','$amount','$description','$status','$limitedadminid')";
         $activate_query_run = mysqli_query($conn, $activate_query);
 
-        $update_query = "UPDATE `register` SET `switch`='1' WHERE `id`='$user_id'";
-        $update_query_run = mysqli_query($conn, $update_query);
-
-        
-
-        if ($payment_query_run && $activate_query_run && $update_query_run) {
+        if ($payment_query_run && $activate_query_run) {
             redirect("Payment.php", "Please wait for approval.");
         } else {
             // Handle the case when insertion fails in one or both tables

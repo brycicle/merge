@@ -218,6 +218,7 @@
 					<th>Date</th>
 					<th>Sponsor ID</th>
 					<th>Receipt</th>
+					<th>Amount</th>
 	                <th>UserName</th>
 	                <th>Status</th>
 					<th colspan="2">Action</th>
@@ -238,7 +239,7 @@
 					<td class="hidden_id" data-label = "Position"><?php echo "xxxxx"?></td>
 					<td class="hidden_id"><?php echo $row['ref_num'] ?></td>
 					<td data-label = "Receipt"><img class="image" src="../<?php echo $row['upload']; ?>" width=50 height=20></td>
-					<td class="hidden_id"><?php echo $row['amount'] ?></td>
+					<td data-label = "Amount" ><?php echo $row['amount'] ?></td>
 					<td class="hidden_id"><?php echo $row['description'] ?></td>
 					<td data-label = "UserName"><?php echo $row['username'] ?></td>
 					<td data-label = "Status">
