@@ -174,7 +174,8 @@
 
 		        	<th>Date</th>
 		        	<th>Sponsor ID</th>
-		        	<th>Receipt</th>
+                    <th>Receipt</th>
+                    <th>Amount</th>
 		        	<th>UserName</th>
 		        	<th>Status</th>
 
@@ -189,7 +190,8 @@
 
 			        <td data-label = "Date" style="color: #2c578f;"><?php echo date('M  j, o', strtotime($row["date"])); ?></td>
 			        <td data-label = "Sponsor ID"><?php echo $row['sponsor_id'] ?></td>
-			        <td data-label = "Receipt"><img class="image" src="../<?php echo $row['upload']; ?>" width=50 height=20></td> 
+			        <td data-label = "Receipt"><img class="image" src="https://merge-fs.s3.ap-southeast-1.amazonaws.com/<?php echo $row['upload']; ?>" width=50 height=20></td>
+                    <td data-label = "Amount" ><?php echo $row['amount'] ?></td>
 					<td data-label = "Username"><?php echo $row['username'] ?></td>
 			        
 			        <td data-label = "Status"><?php 

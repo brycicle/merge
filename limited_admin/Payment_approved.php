@@ -160,8 +160,8 @@
 
 		        	<th>Date</th>
 		        	<th>Sponsor ID</th>
+                    <th>UserName</th>
 		        	<th>Receipt</th>
-		        	<th>UserName</th>
 		        	<th>Status</th>
 
 		      	</tr>
