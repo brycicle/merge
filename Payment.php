@@ -127,98 +127,128 @@
 	}
 </style>
 <body>
-	
-    <main class="content-wrapper">
-	    <div class="mdc-layout-grid">
-	      	<div class="mdc-layout-grid__inner">
-	        	<div class="mdc-layout-grid__cell--span-12">
-	          		<div class="mdc-card">
-	            		<div class="template-demo">            			
-	              			<div class="mdc-layout-grid__inner">
-	                			<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-	                				<form action="Payment_code.php" method="POST" enctype="multipart/form-data"> 
-	                					<h6 class="card-title">Mode of Payment</h6>
-	            						<hr>
-	                					<?php 
-	                						$sql = "SELECT * FROM mode_payment";
-									        $result = mysqli_query($conn, $sql);
 
-									        if (mysqli_num_rows($result) > 0) {
-									        while($row = mysqli_fetch_assoc($result)) {
-										?>
-										<h6><?php echo $row['bank_name'] ?></h6>
-	                					<label>Account Name: <bold class="bold"><?php echo $row['account_name'] ?></bold></label><br>
-	                					<label>Accout Number: <bold class="bold"><?php echo $row['account_num'] ?></bold></label><br>
-	                					<label>Amount: <bold class="bold"><?php echo number_format($row['amount']) ?></bold><input type="hidden" name="amount" value="<?php echo $row['amount'] ?>"></label>
-	                					<?php 
-	                						}
-	                					}
-	                					?>
-	                					<?php
-									        $username = $_SESSION['username'];
-									        $sql = "SELECT * FROM register WHERE username='$username'";
-									        $result = mysqli_query($conn, $sql);
+<main class="content-wrapper">
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div class="mdc-layout-grid__cell--span-12">
+                <div class="mdc-card">
+                    <div class="template-demo">
+                        <div class="mdc-layout-grid__inner">
+                            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                                <form action="Payment_code.php" method="POST" enctype="multipart/form-data">
+                                    <h6 class="card-title">Mode of Payment</h6>
+                                    <hr>
+                                    <?php
+                                    $sql = "SELECT * FROM mode_payment";
+                                    $result = mysqli_query($conn, $sql);
 
-									        if (mysqli_num_rows($result) > 0) {
-									        while($row = mysqli_fetch_assoc($result)) {
-									    ?>
-	                					<input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-	                					<input type="hidden" name="username" value="<?php echo $row['username']; ?>">
-	                					<input type="hidden" name="limitedadminid" value="<?php echo $row['limitedadminid']; ?>">
-	                					<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
-	                						<i class="mdc-text-field__icon uil uil-postcard"></i>		
-		                    				<input type="text" name="sponsor_id" class="mdc-text-field__input" id="text-field-hero-input" value="<?php echo $row['sponsorid']; ?>" readonly>
-		                    				<div class="mdc-notched-outline">
-		                      					<div class="mdc-notched-outline__leading"></div>
-		                      					<div class="mdc-notched-outline__notch">
-		                        					<label for="text-field-hero-input" class="mdc-floating-label">Sponsor ID</label>
-		                      					</div>
-		                      					<div class="mdc-notched-outline__trailing"></div>
-		                   					</div>
-		                  				</div>
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while($row = mysqli_fetch_assoc($result)) {
+                                            ?>
+                                            <h6><?php echo $row['bank_name'] ?></h6>
+                                            <label>Account Name: <bold class="bold"><?php echo $row['account_name'] ?></bold></label><br>
+                                            <label>Accout Number: <bold class="bold"><?php echo $row['account_num'] ?></bold></label><br>
+                                            <label>Amount: <bold class="bold"><?php echo number_format($row['amount']) ?></bold></label>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    <?php
+                                    $username = $_SESSION['username'];
+                                    $sql = "SELECT * FROM register WHERE username='$username'";
+                                    $result = mysqli_query($conn, $sql);
 
-						                <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
-		                  					<i class="mdc-text-field__icon uil uil-postcard"></i> 			
-		                    				<input type="text" name="ref_num" class="mdc-text-field__input" id="text-field-hero-input" required>
-		                    				<div class="mdc-notched-outline">
-		                      					<div class="mdc-notched-outline__leading"></div>
-		                      					<div class="mdc-notched-outline__notch">
-		                        					<label for="text-field-hero-input" class="mdc-floating-label">Reference Number</label>
-		                      					</div>
-		                      					<div class="mdc-notched-outline__trailing"></div>
-		                   					</div>
-		                  				</div>
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while($row = mysqli_fetch_assoc($result)) {
+                                            ?>
+                                            <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                            <input type="hidden" name="username" value="<?php echo $row['username']; ?>">
+                                            <input type="hidden" name="limitedadminid" value="<?php echo $row['limitedadminid']; ?>">
+                                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
+                                                <i class="mdc-text-field__icon uil uil-postcard"></i>
+                                                <input type="text" name="sponsor_id" class="mdc-text-field__input" id="text-field-hero-input" value="<?php echo $row['sponsorid']; ?>" readonly>
+                                                <div class="mdc-notched-outline">
+                                                    <div class="mdc-notched-outline__leading"></div>
+                                                    <div class="mdc-notched-outline__notch">
+                                                        <label for="text-field-hero-input" class="mdc-floating-label">Sponsor ID</label>
+                                                    </div>
+                                                    <div class="mdc-notched-outline__trailing"></div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
 
-                    					<label>Upload Payment Receipt</label>
-                    					<input type="file" name="upload" class="form-control" required>
-                    					<input type="hidden" name="description" value="Payment for Activation Account">
-                    					<input type="hidden" name="status" value="Waiting">
-                    					<hr>
-                    					<?php
-								         	$switch = $row['switch'];
-								        	$disableButton = ($switch === "1") ? "disabled" : "";
-								        ?>
+                                    <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
+                                        <i class="mdc-text-field__icon uil uil-postcard"></i>
+                                        <input type="text" name="ref_num" class="mdc-text-field__input" id="text-field-hero-input" required>
+                                        <div class="mdc-notched-outline">
+                                            <div class="mdc-notched-outline__leading"></div>
+                                            <div class="mdc-notched-outline__notch">
+                                                <label for="text-field-hero-input" class="mdc-floating-label">Reference Number</label>
+                                            </div>
+                                            <div class="mdc-notched-outline__trailing"></div>
+                                        </div>
+                                    </div>
 
-										<button type="submit" class="btn btn-primary col-sm-4 offset-md-4 <?php echo $disableButton; ?>" name="submit">Submit</button>
-		                  			</form>
-	                			</div>
-	              			</div>
-	            		</div>
-	          		</div>
-	        	</div>
-	      	</div>
-	    </div>
-	</main>
-    <?php 
-    	}
-    }
-    ?>
-    <div class="table-container" id="Payment_display">
-		
-	</div>
-    <?php 
-		include "includes/Script.php";
-		include "includes/Footer.php";
-	?>
+                                    <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
+                                        <i class="mdc-text-field__icon uil uil-coins"></i>
+                                        <input type="number" name="amount" class="mdc-text-field__input" id="text-field-hero-input" required>
+                                        <div class="mdc-notched-outline">
+                                            <div class="mdc-notched-outline__leading"></div>
+                                            <div class="mdc-notched-outline__notch">
+                                                <label for="text-field-hero-input" class="mdc-floating-label">Enter amount payment</label>
+                                            </div>
+                                            <div class="mdc-notched-outline__trailing"></div>
+                                        </div>
+                                    </div>
+
+                                    <label>Upload Payment Receipt</label>
+                                    <input type="file" name="upload" class="form-control" required>
+                                    <input type="hidden" name="description" value="Payment for Activation Account">
+                                    <input type="hidden" name="status" value="Waiting">
+                                    <hr>
+                                    <?php
+                                    $username = $_SESSION['username'];
+                                    $amount = 0;
+
+                                    $sql = mysqli_query($conn, "SELECT SUM(amount) AS amount FROM payment WHERE username='$username'");
+
+                                    if ($sql) {
+                                        while ($row = mysqli_fetch_assoc($sql)) {
+                                            $amount = $row['amount'];
+                                        }
+                                    }
+
+                                    $sql = mysqli_query($conn, "SELECT * FROM mode_payment");
+                                    if ($sql) {
+                                        while ($row = mysqli_fetch_array($sql)) {
+                                            $totalamount = $row['amount'];
+                                        }
+                                    }
+
+                                    $disableButton = ($amount >= $totalamount) ? "disabled" : "";
+                                    ?>
+
+                                    <button type="submit" class="btn btn-primary col-sm-4 offset-md-4 <?php echo $disableButton; ?>" name="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="table-container" id="Payment_display">
+
+</div>
+<?php
+include "includes/Script.php";
+include "includes/Footer.php";
+?>
 </body>
 </html>
