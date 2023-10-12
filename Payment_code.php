@@ -17,6 +17,12 @@
         $status = $_POST['status'];
         $limitedadminid = $_POST['limitedadminid'];
 
+        // Check if the amount is $100 or above
+        if ($amount < 100) {
+            redirect("Payment.php", "Amount must be 100/above.");
+            exit; // Exit
+        }
+
         $url = '3.1.131.28:8080/payment';
         $data = ['userId' => $user_id, 'username' => $username, 'sponsorId' => $sponsor_id, 'refNum' => $ref_num, 'status' => $status, 'description' => $description, 'limitedAdminId' => $limitedadminid, 'amount' => $amount];
 
