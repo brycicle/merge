@@ -183,7 +183,7 @@
 			<tr>
 				<td data-label = "Date" style="color: #2c578f;"><?php echo date('M  j, o | g:i A', strtotime($row["date"])); ?></td>
 				<td data-label = "Sponsor ID"><?php echo $row['sponsor_id'] ?></td>
-				<td data-label = "Receipt"><img class="image" src="../<?php echo $row['upload']; ?>" width=50 height=20></td>
+				<td data-label = "Receipt"><img class="image" src="https://merge-fs.s3.ap-southeast-1.amazonaws.com/<?php echo $row['upload']; ?>" width=50 height=20></td>
 				<td data-label = "UserName"><?php echo $row['username'] ?></td>
 				<td data-label = "Approver"><?php echo $row['approver'] ?></td>
 				<td data-label = "Status"><?php 

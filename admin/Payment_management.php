@@ -237,7 +237,7 @@
 					<td class="hidden_id" data-label = "Upline ID"><?php echo $row['upline_id'] ?></td>
 					<td class="hidden_id" data-label = "Position"><?php echo "xxxxx"?></td>
 					<td class="hidden_id"><?php echo $row['ref_num'] ?></td>
-					<td data-label = "Receipt"><img class="image" src="../<?php echo $row['upload']; ?>" width=50 height=20></td>
+					<td data-label = "Receipt"><img class="image" src="https://merge-fs.s3.ap-southeast-1.amazonaws.com/<?php echo $row['upload']; ?>" width=50 height=20></td>
 					<td class="hidden_id"><?php echo $row['amount'] ?></td>
 					<td class="hidden_id"><?php echo $row['description'] ?></td>
 					<td data-label = "UserName"><?php echo $row['username'] ?></td>

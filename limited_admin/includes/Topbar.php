@@ -13,7 +13,7 @@
             <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu
                 </button>
-                <b style="text-transform: uppercase;" class="d-md-flex d-none"><?php echo $row['usertype']; ?></b>&nbsp;&nbsp;&nbsp;&nbsp;
+                <b style="text-transform: uppercase;" class="d-md-flex d-none">Admin</b>&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon search-text-field d-md-flex">
                     <i class="material-icons mdc-text-field__icon">search</i>
                     <input class="mdc-text-field__input" id="search" name="search">

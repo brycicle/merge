@@ -152,7 +152,7 @@ body {
 			<img src="user-icon.png" class="profile-pic">
 			<h3><?php echo $row['username']; ?></h3>
 			<p>Reference Number: <?php echo $row['ref_num']; ?></p>
-			<p>Upload Receipt: <img  class="image" src="../<?php echo $row['upload']; ?>" style="width:100px; height: 100px;"></p>
+			<p>Upload Receipt: <img  class="image" src="https://merge-fs.s3.ap-southeast-1.amazonaws.com/<?php echo $row['upload']; ?>" style="width:100px; height: 100px;"></p>
 			<!-- <a href="Accept.php?id=<?php echo $row['id'] ?>"><button type="submit">Approve</button></a> -->
 			<div class="profile-bottom">
 			</div>

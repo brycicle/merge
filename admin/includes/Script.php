@@ -278,8 +278,8 @@
             console.log(data);
 
             $('#encashmentapproved_id').val(data[0]);
-            $('#tax').val(data[4]);
-            $('#net_balance').val(data[5]);
+            $('#tax').val(data[5]);
+            $('#net_balance').val(data[6]);
               
         });
     });

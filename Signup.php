@@ -286,7 +286,7 @@
                         <i class="fas fa-user"></i>
                    </div>
                    <div class="div">
-                        <h5>Fisrt Name</h5>
+                        <h5>First Name</h5>
                         <input type="text" class="input" name="fname" id="validationCustom01" required>
                         <div class="invalid-feedback">
                             Please Input Your First Name.

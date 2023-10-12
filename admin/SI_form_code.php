@@ -12,7 +12,7 @@ if ($_FILES['pdf_file']['name']) {
     $db_host = 'merge-db.cepfuxv8az9f.ap-southeast-1.rds.amazonaws.com'; // Replace with your database host
     $db_user = 'merge'; // Replace with your database username
     $db_pass = 'MergeInternational23'; // Replace with your database password
-    $db_name = 'project'; // Replace with your database name
+    $db_name = 'merge'; // Replace with your database name
 
     // Create a connection to the database
     $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
