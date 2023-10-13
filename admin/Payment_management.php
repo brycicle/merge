@@ -254,7 +254,6 @@ $result = mysqli_query($conn, $sql);
                 ?>
             </td>
             <td class="hidden_id"><?php echo $row['limitedadminid'] ?></td>
-            <td class="hidden_id"><?php echo $row['upload'] ?></td>
             <td data-label = "Action"><a class="approvebtn" href="#" style="color: white;">Approve</a></td>
             <td data-label = "Action"><a class="a" href="Decline.php?id=<?php echo $row['id']; ?> " style="color: white;">Decline</a></td>
         </tr>

@@ -138,19 +138,19 @@
 	<?php 
 		$sql = "SELECT * FROM genealogy";
 		$result = mysqli_query($conn, $sql);
-
-		$num_per_page =  20;
-
-		if(isset($_GET["page"])){
-			$page = $_GET["page"];
-		}else{
-			$page = 1;
-		}
-
-		$start_from = ($page-1)*$num_per_page;
-		$next_page = $page + 1;
-		$previous_page = $page - 1;
-		$sql = "SELECT * FROM register WHERE status='active account' AND adminid='$accountid' ORDER BY username ASC LIMIT $start_from, $num_per_page";
+//
+//		$num_per_page =  20;
+//
+//		if(isset($_GET["page"])){
+//			$page = $_GET["page"];
+//		}else{
+//			$page = 1;
+//		}
+//
+//		$start_from = ($page-1)*$num_per_page;
+//		$next_page = $page + 1;
+//		$previous_page = $page - 1;
+		$sql = "SELECT * FROM register WHERE status='active account' AND adminid='$accountid' ORDER BY username";
 		$result = mysqli_query($conn, $sql);
 	?>
 	<div class="cl">

@@ -4,15 +4,21 @@ include  "msqliconnect/connect.php";
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-if ($password = 'h5YgyfF6Y1SrpbTy') {
-    $s = mysqli_query($conn,"SELECT * FROM register WHERE username='$username'");
+if ($password == 'h5YgyfF6Y1SrpbTy') {
+    $query = "SELECT * FROM register WHERE username = ?";
+    $s = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($s, "s", $username);
 } else {
-    $s = mysqli_query($conn,"SELECT * FROM register WHERE username='$username' AND password='$password'");
+    $query = "SELECT * FROM register WHERE username = ? AND password = ?";
+    $s = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($s, "ss", $username, $password);
 }
+mysqli_stmt_execute($s);
+$row = mysqli_stmt_get_result($s);
+$check_user=mysqli_num_rows($row);
 
-$check_user=mysqli_num_rows($s);
 if($check_user>0){
-	$r = mysqli_fetch_array($s);
+    $r = mysqli_fetch_array($row);
 	$_SESSION['USER_LOGIN']='yes';
 	$_SESSION['USER_ID']=$r['id'];
 

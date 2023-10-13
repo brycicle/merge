@@ -39,6 +39,9 @@
                 return $(this).text();
             }).get();
 
+            // Get the 'upload' attribute value using the .attr() method
+            var uploadValue = $tr.find("td[data-label='Receipt'] img").attr("src");
+            uploadValue = uploadValue.replace(/\.\.\//g, '');
 
             console.log(data);
 
@@ -49,12 +52,15 @@
             $('#sponsor_id').val(data[3]);
             $('#position').val(data[5]);
             $('#ref_num').val(data[6]);
+
+            // Set the 'upload' attribute value to the appropriate element
+            $('#upload').val(uploadValue);
+
             $('#amount').val(data[8]);
             $('#description').val(data[9]);
             $('#username').val(data[10]);
             $('#status').val(data[11]);
-            $('#limitedadminid').val(data[12]);
-            $('#upload').val(data[13]);
+             $('#limitedadminid').val(data[12]);
         });
     });
 </script>
