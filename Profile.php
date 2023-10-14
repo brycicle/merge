@@ -118,7 +118,8 @@
         @media screen and (max-width: 768px) {
             /* Add your responsive styles for screens with a maximum width of 768px here */
             .wrapper {
-                margin-left: 5%;
+                margin-top: 20%;
+                margin-bottom: 100px;
                 max-width: 100%; /* Adjust to full width on smaller screens */
                 flex-direction: column; /* Stack elements vertically on small screens */
                 align-items: center; /* Center elements horizontally on small screens */

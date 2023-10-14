@@ -17,9 +17,6 @@
         <main class="content-wrapper" >
           <div class="mdc-layout-grid"  >
             <div class="mdc-layout-grid__inner">
-
-
-
               <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6">
                 <div class="mdc-card">
                   <div class="chart-container mt-4">

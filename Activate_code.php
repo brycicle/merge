@@ -289,6 +289,20 @@ function PairingBonus($uplineID1, $side) {
                         $updateStmt->execute();
                      
                     }
+                } else {
+                    if($side === "left" && $leftCount <= $rightCount){
+                        $updateSql = "UPDATE genealogy SET right_count = 0 WHERE accountid = ?";
+                        $updateStmt = $conn->prepare($updateSql);
+                        $updateStmt->bind_param("s", $uplineID1);
+                        $updateStmt->execute();
+                     
+                    }else{
+                        $updateSql = "UPDATE genealogy SET left_count = 0 WHERE accountid = ?";
+                        $updateStmt = $conn->prepare($updateSql);
+                        $updateStmt->bind_param("s", $uplineID1);
+                        $updateStmt->execute();
+                     
+                    }
                 }
             } elseif(($currentHour >= 20 && $currentMinute >= 0) || ($currentHour < 8)) {
                 // Start 8:00 PM to 7:59 AM
@@ -300,7 +314,22 @@ function PairingBonus($uplineID1, $side) {
                         $updateStmt->bind_param("s", $uplineID1);
                         $updateStmt->execute();
                     }
+                }else{
+                    if($side === "left" && $leftCount <= $rightCount){
+                        $updateSql = "UPDATE genealogy SET right_count = 0 WHERE accountid = ?";
+                        $updateStmt = $conn->prepare($updateSql);
+                        $updateStmt->bind_param("s", $uplineID1);
+                        $updateStmt->execute();
+                     
+                    }else{
+                        $updateSql = "UPDATE genealogy SET left_count = 0 WHERE accountid = ?";
+                        $updateStmt = $conn->prepare($updateSql);
+                        $updateStmt->bind_param("s", $uplineID1);
+                        $updateStmt->execute();
+                     
+                    }
                 }
+
             }
         
             // Recursively call PairingBonus for the parent if it's not the head account
