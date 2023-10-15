@@ -130,70 +130,89 @@
 
 				</tr>
 			</thead> 
+			
+
 			<?php
-$username = $_SESSION['username'];
-$sponsorid = $_GET['sponsorid'];
-$i = 1;
-$membersDisplayed = 0;
+			    $username = $_SESSION['username'];
+			    $sponsorid = $_GET['sponsorid'];
 
-function fetchGenealogy($conn, $accountId) {
-    $sql = "SELECT accountid, username, status, sponsorid FROM genealogy WHERE sponsorid='$accountId' AND status='active'";
-    $result = mysqli_query($conn, $sql);
+			    // Define a recursive function to fetch the account details
+			    function displayAccountDetails($accountId, &$i) {
+			        global $conn, $username;
 
-    $genealogyRows = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $row['children'] = fetchGenealogy($conn, $row['accountid']);
-        $genealogyRows[] = $row;
-    }
+			        // Check if we have already displayed 14 members
+			        if ($i > 14) {
+			            return; // Exit the function if the limit is reached
+			        }
 
-    return $genealogyRows;
-}
+			        // Fetch account details based on the account ID
+			        $stmt = mysqli_prepare($conn, "SELECT accountid, username, sponsorid, status FROM genealogy WHERE accountid = ? ORDER BY username ASC");
+			        mysqli_stmt_bind_param($stmt, "s", $accountId);
+			        mysqli_stmt_execute($stmt);
 
-$genealogy = fetchGenealogy($conn, $sponsorid);
-?>
+			        if (!$stmt) {
+			            die("Error: " . mysqli_error($conn));
+			        }
 
-<tbody>
-    <?php	
-    function displayGenealogy($rows) {
-        global $i, $membersDisplayed;
-        foreach ($rows as $row) {
-            if ($membersDisplayed >= 14) {
-                break; // Exit the loop if 14 members are displayed
-            }
+			        mysqli_stmt_bind_result($stmt, $accountid, $username, $sponsorid, $status);
+			        mysqli_stmt_fetch($stmt);
 
-            echo '<tr>';
-            echo '<td data-label="No.">'.$i++.'</td>';
-            echo '<td data-label="Account ID">' . $row['accountid'] . '</td>';
-            echo '<td data-label="User Name">' . $row['username'] . '</td>';
-            echo '<td data-label="Sponsor ID">' . $row['sponsorid'] . '</td>';
-            echo '<td data-label="Status">';
-            
-            $status = $row['status'];
-            if ($status == "" || $status == "active") {
-                echo '<b class="active_account">' . $status . ' account</b>';
-            }
-            echo '</td>';
-            echo '</tr>';
+			        // Check if the current username matches the session username
+			        if ($username !== $_SESSION['username']) {
+			            // Display the account details in a table row
+			            echo '<tr>';
+			            echo '<td data-label = "No.">' . $i++ . '</td>';
+			            echo '<td data-label = "Account ID">' . $accountid . '</td>';
+			            echo '<td data-label = "User Name">' . $username . '</td>';
+			            echo '<td data-label = "Sponsor ID">' . $sponsorid . '</td>';
+			            echo '<td data-label = "Status"> <b class="active_account">' . $status . ' account</b> </td>';
+			            echo '</tr>';
+			        }
 
-            $membersDisplayed++;
+			        mysqli_stmt_close($stmt);
 
-            if (!empty($row['children'])) {
-                displayGenealogy($row['children']);
-            }
-        }
-    }
+			        // Fetch left and right child accounts recursively
+			        $leftAccountId = fetch_left_right(0, $accountId);
+			        $rightAccountId = fetch_left_right(1, $accountId);
 
-    if (empty($genealogy)) {
-        // If there are no records, display "No Record Found" message
-        echo '<tr>';
-        echo '<td colspan="5" style="text-align: center;">No Record Found</td>';
-        echo '</tr>';
-    } else {
-        displayGenealogy($genealogy);
-    }
-    ?>
-</tbody>
+			        if (!empty($leftAccountId)) {
+			            displayAccountDetails($leftAccountId, $i);
+			        }
 
+			        if (!empty($rightAccountId)) {
+			            displayAccountDetails($rightAccountId, $i);
+			        }
+			    }
+
+			    // Start displaying the account details
+			    $i = 1; // Initialize row count
+			    displayAccountDetails($sponsorid, $i);
+
+			    function fetch_left_right($side, $agent_id) {
+			        global $conn;
+
+			        if ($side == 0) {
+			            $pos = 'leftdownlineid';
+			        } else {
+			            $pos = 'rightdownlineid';
+			        }
+
+			        $stmt = mysqli_prepare($conn, "SELECT $pos FROM genealogy WHERE accountid = ?");
+			        mysqli_stmt_bind_param($stmt, "s", $agent_id);
+			        mysqli_stmt_execute($stmt);
+
+			        if (!$stmt) {
+			            die("Error: " . mysqli_error($conn));
+			        }
+
+			        mysqli_stmt_bind_result($stmt, $result);
+			        mysqli_stmt_fetch($stmt);
+
+			        mysqli_stmt_close($stmt);
+
+			        return $result;
+			    }
+			?>
 		</table>
 	</div>
 	<?php 
