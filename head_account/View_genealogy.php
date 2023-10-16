@@ -35,7 +35,7 @@
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 	overflow-x: auto;
 	white-space: nowrap;
-	 
+	background: #fff;
 	}
 	* {
 		padding: 0px;
@@ -268,18 +268,7 @@
 	.back-button:hover{
 		background-color: #0056b3;
 	}
-	.card {
-	    max-width: 1100px;
-	    margin: 0 auto;
-	    margin-top: 20px;
-	    
-	    border: 2px solid #ccc;
-	    border-radius: 10px;
-	    position: relative;
-	    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-	    overflow-x: auto;
-	    white-space: nowrap;
-	}
+
 </style>
 <body>
 <div class="card">
@@ -383,42 +372,42 @@
 									if($i == 0){
 										?>
 											<li class="lock-item">
-											<a style = "margin-right: 350px; margin-left: 350px;" ><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+											<a style = "margin-right: 350px; margin-left: 350px;" ><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 											</li>
 										<?php
 									}elseif($i == 1){
 
 										?>
 										<li class="lock-item">
-										<a style = "margin-right: 160px; margin-left: 160px;"><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+										<a style = "margin-right: 160px; margin-left: 160px;"><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 										</li>
 										<?php
 									}elseif($i == 2){
 										if($level2 == 0){
 											?>
 											<li class="lock-item">
-											<a style = "margin-right: 70px; margin-left: 40px;"><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+											<a style = "margin-right: 70px; margin-left: 40px;"><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 											</li>
 											<?php
 											$level2++;
 										}elseif($level2 == 1){
 											?>
 											<li class="lock-item">
-											<a style = "margin-right: 65px; margin-left:40px;"><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+											<a style = "margin-right: 65px; margin-left:40px;"><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 											</li>
 											<?php
 											$level2++;
 										}elseif($level2 == 2){
 											?>
 											<li class="lock-item">
-											<a style = "margin-right: 40px; margin-left:65px;"  ><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+											<a style = "margin-right: 40px; margin-left:65px;"  ><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 											</li>
 											<?php
 											$level2++;
 										}elseif($level2 == 3){
 											?>
 											<li class="lock-item">
-											<a style = "margin-right: 40px; margin-left: 70px;"   ><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+											<a style = "margin-right: 40px; margin-left: 70px;"   ><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 											</li>
 											<?php
 											$level2++;
@@ -428,7 +417,7 @@
 									}elseif($i == 3){
 										?>
 										<li class="lock-item">
-										<a style = "margin-right: 2px; margin-left: 2px;"   ><img src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
+										<a style = "margin-right: 2px; margin-left: 2px;"   ><img src="../img/userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
 										</li>
 										<?php
 									}
@@ -496,73 +485,74 @@
         </thead>
 
         <?php
-        $username = $_SESSION['username'];
-        $sponsorid = $_GET['sponsorid'];
+$username = $_SESSION['username'];
+$sponsorid = $_GET['sponsorid'];
 
-        // Define a recursive function to display account details
-        function displayAccountDetails($accountId, &$i) {
-            global $conn, $username;
+// Define a recursive function to display account details at a specific level
+function displayAccountDetails($accountId, &$i, $level) {
+    global $conn, $username;
 
-            // Check if we have already displayed 14 members
-            if ($i > 14) {
-                return; // Exit the function if the limit is reached
-            }
+    // Check if we have already displayed 14 members or reached level 4
+    if ($i > 14 || $level > 4) {
+        return; // Exit the function if the limit is reached or level exceeds 4
+    }
 
-            // Fetch account details based on the account ID
-            $stmt = mysqli_prepare($conn, "SELECT accountid, username, sponsorid, status, left_count, right_count FROM genealogy WHERE accountid = ? ORDER BY username ASC");
-            mysqli_stmt_bind_param($stmt, "s", $accountId);
-            mysqli_stmt_execute($stmt);
+    // Fetch account details based on the account ID
+    $stmt = mysqli_prepare($conn, "SELECT accountid, username, sponsorid, status, left_count, right_count FROM genealogy WHERE accountid = ? ORDER BY username ASC");
+    mysqli_stmt_bind_param($stmt, "s", $accountId);
+    mysqli_stmt_execute($stmt);
 
-            if (!$stmt) {
-                die("Error: " . mysqli_error($conn));
-            }
+    if (!$stmt) {
+        die("Error: " . mysqli_error($conn));
+    }
 
-            mysqli_stmt_bind_result($stmt, $accountid, $username, $sponsorid, $status, $left_count, $right_count);
-            mysqli_stmt_fetch($stmt);
+    mysqli_stmt_bind_result($stmt, $accountid, $username, $sponsorid, $status, $left_count, $right_count);
+    mysqli_stmt_fetch($stmt);
 
-            // Check if the current username matches the session username
-            if ($username !== $_SESSION['username']) {
-                // Display the account details in a table row
-                echo "<tbody id='data_table'>";
-                echo '<tr>';
-                echo '<td data-label = "Account ID">' . $accountid . '</td>';
-	            echo '<td data-label = "User Name">' . $username . '</td>';
-	            echo '<td data-label = "Sponsor ID">' . $sponsorid . '</td>';
-	          	echo '<td data-label = "Total Left">'.$left_count.'</td>';
-	          	echo '<td data-label = "Total Right">'.$right_count.'</td>';
-	            echo '<td data-label = "Action"><a href="Genealogy_view.php?sponsorid='.$accountid.'" class="btn btn-primary">View</a></td>';
-                echo '</tr>';
-                echo "</tbody>";
-            }
+    // Check if the current username matches the session username
+    if ($username !== $_SESSION['username']) {
+        // Display the account details in a table row
+        echo "<tbody id='data_table'>";
+        echo '<tr>';
+        echo '<td data-label="Account ID">' . $accountid . '</td>';
+        echo '<td data-label="User Name">' . $username . '</td>';
+        echo '<td data-label="Sponsor ID">' . $sponsorid . '</td>';
+        echo '<td data-label="Total Left">' . $left_count . '</td>';
+        echo '<td data-label="Total Right">' . $right_count . '</td>';
+        echo '<td data-label="Action"><a href="Genealogy_view.php?sponsorid=' . $accountid . '" class="btn btn-primary">View</a></td>';
+        echo '</tr>';
+        echo "</tbody>";
+    }
 
-            mysqli_stmt_close($stmt);
+    mysqli_stmt_close($stmt);
 
-            // Fetch left and right child accounts recursively using a single query
-            $stmt = mysqli_prepare($conn, "SELECT leftdownlineid, rightdownlineid FROM genealogy WHERE accountid = ?");
-            mysqli_stmt_bind_param($stmt, "s", $accountId);
-            mysqli_stmt_execute($stmt);
+    // Fetch left and right child accounts recursively using a single query
+    $stmt = mysqli_prepare($conn, "SELECT leftdownlineid, rightdownlineid FROM genealogy WHERE accountid = ?");
+    mysqli_stmt_bind_param($stmt, "s", $accountId);
+    mysqli_stmt_execute($stmt);
 
-            if (!$stmt) {
-                die("Error: " . mysqli_error($conn));
-            }
+    if (!$stmt) {
+        die("Error: " . mysqli_error($conn));
+    }
 
-            mysqli_stmt_bind_result($stmt, $leftAccountId, $rightAccountId);
-            mysqli_stmt_fetch($stmt);
-            mysqli_stmt_close($stmt);
+    mysqli_stmt_bind_result($stmt, $leftAccountId, $rightAccountId);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
 
-            if (!empty($leftAccountId)) {
-                displayAccountDetails($leftAccountId, $i);
-            }
+    if (!empty($leftAccountId)) {
+        displayAccountDetails($leftAccountId, $i, $level + 1);
+    }
 
-            if (!empty($rightAccountId)) {
-                displayAccountDetails($rightAccountId, $i);
-            }
-        }
+    if (!empty($rightAccountId)) {
+        displayAccountDetails($rightAccountId, $i, $level + 1);
+    }
+}
 
-        // Start displaying the account details
-        $i = 1; // Initialize row count
-        displayAccountDetails($sponsorid, $i);
-        ?>
+// Start displaying the account details
+$i = 1; // Initialize row count
+displayAccountDetails($sponsorid, $i, 1); // Start at level 1
+?>
+
     </table>
 	<?php 
 		include "includes/Script.php";
