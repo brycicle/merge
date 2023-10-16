@@ -568,6 +568,8 @@ if (($result = mysqli_query($conn, $query)) && ($accountId !== null)) {
         </div>
     </div>
 </div>
+
+
 <?php
 include "includes/Script.php";
 include "includes/Footer.php";

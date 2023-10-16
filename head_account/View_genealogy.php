@@ -343,11 +343,11 @@ $sponsorid = $_GET['sponsorid'];
                     <?php
                     $sponsorid = $_GET['sponsorid'];
 
-                    $id2 = [$sponsorid];
-                    $i = 0;
-                    for ($i; $i <= 3; $i++) {
+                    $currentId = [$sponsorid];
+                    $levelCounter = 0;
+                    for ($levelCounter; $levelCounter <= 3; $levelCounter++) {
                         $temp_id_index = 0;
-                        $divide = pow(2, $i);
+                        $divide = pow(2, $levelCounter);
                         ?>
                         <ul>
 
@@ -356,29 +356,28 @@ $sponsorid = $_GET['sponsorid'];
                             for ($d = 0; $d < $divide; $d++) {
 
 
-                                if (!empty($id2[$d])) {
-                                    $print_id = $id2[$d];
+                                if (!empty($currentId[$d])) {
+                                    $print_id = $currentId[$d];
 
                                     $sql = mysqli_query($conn, "SELECT username FROM genealogy WHERE accountid='$print_id'");
                                     while ($row = mysqli_fetch_array($sql)) {
                                         $username = $row['username'];
                                     }
 
-
-                                    if ($i == 0) {
+                                    if ($levelCounter == 0) {
                                         echo '<li class="' . (16 / $divide) . '">';
                                         echo '<a  style = "margin-right: 350px; margin-left: 350px;"  href="View_genealogy.php?sponsorid=' . $print_id . '">';
                                         echo '<img src="../user (2).png"><span>' . $print_id . '<br>' . $username . '</span>';
                                         echo '</a>';
                                         echo '</li>';
-                                    } elseif ($i == 1) {
+                                    } elseif ($levelCounter == 1) {
                                         echo '<li class="' . (16 / $divide) . '">';
                                         echo '<a style = "margin-right: 160px; margin-left: 160px;" href="View_genealogy.php?sponsorid=' . $print_id . '">';
 
                                         echo '<img src="../user (2).png"><span>' . $print_id . '<br>' . $username . '</span>';
                                         echo '</a>';
                                         echo '</li>';
-                                    } elseif ($i == 2) {
+                                    } elseif ($levelCounter == 2) {
                                         if ($level2 == 0) {
                                             echo '<li class="' . (16 / $divide) . '">';
                                             echo '<a  style = "margin-right: 70px; margin-left: 40px;" href="View_genealogy.php?sponsorid=' . $print_id . '">';
@@ -408,7 +407,7 @@ $sponsorid = $_GET['sponsorid'];
                                             echo '</li>';
                                             $level2++;
                                         }
-                                    } elseif ($i == 3) {
+                                    } elseif ($levelCounter == 3) {
                                         echo '<li class="' . (16 / $divide) . '">';
                                         echo '<a style = "margin-right: 2px; margin-left: 2px;" href="View_genealogy.php?sponsorid=' . $print_id . '">';
                                         echo '<img src="../user (2).png"><span>' . $print_id . '<br>' . $username . '</span>';
@@ -417,14 +416,14 @@ $sponsorid = $_GET['sponsorid'];
                                     }
                                 } else {
 
-                                    if ($i == 0) {
+                                    if ($levelCounter == 0) {
                                         ?>
                                         <li class="lock-item">
                                             <a style="margin-right: 350px; margin-left: 350px;"><img
                                                         src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
                                         </li>
                                         <?php
-                                    } elseif ($i == 1) {
+                                    } elseif ($levelCounter == 1) {
 
                                         ?>
                                         <li class="lock-item">
@@ -432,7 +431,7 @@ $sponsorid = $_GET['sponsorid'];
                                                         src="../userlock.png"><span class="spacer">      <b>Lock</b>      </span></a>
                                         </li>
                                         <?php
-                                    } elseif ($i == 2) {
+                                    } elseif ($levelCounter == 2) {
                                         if ($level2 == 0) {
                                             ?>
                                             <li class="lock-item">
@@ -468,7 +467,7 @@ $sponsorid = $_GET['sponsorid'];
                                         }
 
 
-                                    } elseif ($i == 3) {
+                                    } elseif ($levelCounter == 3) {
                                         ?>
                                         <li class="lock-item">
                                             <a style="margin-right: 2px; margin-left: 2px;"><img
@@ -480,22 +479,27 @@ $sponsorid = $_GET['sponsorid'];
 
 
                                 // Fetching left and right data - assuming $temp_id is an array
-                                if (!empty($id2[$d])) {
-                                    for ($p = 0; $p < 2; $p++) {
-                                        $temp_id[$temp_id_index] = fetch_left_right($p, $print_id);
+                                if (!empty($currentId[$d])) {
+                                    for ($side = 0; $side < 2; $side++) {
+                                        $temp_id[$temp_id_index] = fetch_left_right($side, $print_id);
+                                        $temp_id_index++;
+                                    }
+                                } else {
+                                    for ($side = 0; $side < 2; $side++) {
+                                        $temp_id[$temp_id_index] = empty(0);
                                         $temp_id_index++;
                                     }
                                 }
                             }
 
                             // Update $id2 with $temp_id
-                            $id2 = $temp_id;
+                            $currentId = $temp_id;
                             ?>
                         </ul>
 
                         <?php
                     }
-                    function fetch_left_right($side, $agent_id)
+                    function fetch_left_right($side, $accountId)
                     {
                         global $conn;
 
@@ -506,7 +510,7 @@ $sponsorid = $_GET['sponsorid'];
                         }
 
                         $stmt = mysqli_prepare($conn, "SELECT $pos FROM genealogy WHERE accountid = ?");
-                        mysqli_stmt_bind_param($stmt, "s", $agent_id);
+                        mysqli_stmt_bind_param($stmt, "s", $accountId);
                         mysqli_stmt_execute($stmt);
 
                         if (!$stmt) {
