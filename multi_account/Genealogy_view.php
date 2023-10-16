@@ -430,6 +430,12 @@
 										$temp_id[$temp_id_index] = fetch_left_right($p, $print_id);
 										$temp_id_index++;
 									}
+								}else{
+									for ($p = 0; $p < 2; $p++) {
+										$temp_id[$temp_id_index] = NULL;
+										$temp_id_index++;
+									}
+
 								}
 							}
 					
